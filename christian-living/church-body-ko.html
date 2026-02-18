@@ -261,6 +261,30 @@
     const searchInput = document.getElementById('search-input');
     const resultsContainer = document.getElementById('search-results');
 
+    document.querySelectorAll('.dropbtn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) { // 모바일 화면일 때만 작동
+                e.preventDefault();
+                const content = this.nextElementSibling;
+                
+                // 다른 메뉴 닫기
+                document.querySelectorAll('.dropdown-content').forEach(other => {
+                    if (other !== content) other.classList.remove('show');
+                });
+
+                // 현재 메뉴 열기/닫기
+                content.classList.toggle('show');
+            }
+        });
+    });
+
+    // 메뉴 밖 클릭 시 닫기
+    window.addEventListener('click', (e) => {
+        if (!e.target.matches('.dropbtn')) {
+            document.querySelectorAll('.dropdown-content').forEach(c => c.classList.remove('show'));
+        }
+    });
+    
     const pages = [
         { title: "Home", url: "/index.html" },
         { title: "교회는 주님의 몸이다 (KO)", url: "/christian-living/church-body-ko.html" },
