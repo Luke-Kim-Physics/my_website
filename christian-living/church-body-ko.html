@@ -1,32 +1,127 @@
-<main>
-    <article>
-        <h1>교회는 주님의 몸이다</h1>
-        <p class="author-date">저자: Luke Kim | 발행일: 2026-02-18</p>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교회는 주님의 몸이다 | Luke's Library</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* index.html에 넣었던 모든 CSS 코드를 여기에 똑같이 복사해서 넣어야 합니다. */
+        :root { --text-main: #333; --text-sub: #7a7a7a; --accent: #3498db; --border: #f2f3f3; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-main); margin: 0; line-height: 1.6; }
+        header { display: flex; justify-content: space-around; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: white; z-index: 1000; }
+        .logo { font-weight: bold; font-size: 1.2rem; text-decoration: none; color: #333; }
+        .navbar { display: flex; align-items: center; }
+        .navbar > a, .dropbtn { margin: 0 15px; text-decoration: none; color: var(--text-sub); font-size: 0.9rem; background: none; border: none; cursor: pointer; font-family: inherit; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #fff; min-width: 220px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); z-index: 1; border: 1px solid var(--border); border-radius: 4px; top: 100%; }
+        .dropdown-content a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.85rem; border-bottom: 1px solid var(--border); }
+        .dropdown-content a:hover { background-color: #f9f9f9; color: var(--accent); }
+        .dropdown:hover .dropdown-content { display: block; }
 
-        <section id="preface">
-            <h2>머릿말 (Preface)</h2>
-            <p>이 책을 시작하며 독자들에게 전하고 싶은 메시지입니다...</p>
-        </section>
+        /* 3단 레이아웃 스타일 */
+        .container { display: grid; grid-template-columns: 260px 1fr 260px; max-width: 1200px; margin: 40px auto; gap: 40px; padding: 0 20px; }
+        .profile-sidebar, .toc-sidebar { position: sticky; top: 80px; align-self: flex-start; }
+        .profile-img { width: 100%; max-width: 200px; border-radius: 50%; margin-bottom: 20px; border: 1px solid var(--border); }
+        .sns-links { list-style: none; padding: 20px 0 0; border-top: 1px solid var(--border); }
+        .sns-links li { margin-bottom: 12px; font-size: 0.9rem; }
+        .sns-links a { text-decoration: none; color: #494e52; }
 
-        <section id="chapter1">
-            <h2>1장. 주님의 몸 된 교회</h2>
-            <p>본문 내용을 여기에 작성합니다. 분량이 길어져도 상관없습니다.</p>
-        </section>
+        /* 목차(TOC) 박스 스타일 */
+        .toc-box { border: 1px solid #e2e2e2; border-radius: 4px; }
+        .toc-header { background: #7a7a7a; color: white; padding: 10px 15px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-list li a { display: block; padding: 8px 15px; text-decoration: none; color: var(--text-sub); font-size: 0.85rem; border-bottom: 1px solid var(--border); }
+        .toc-list li a.active { color: var(--accent); background: #f9f9f9; font-weight: bold; border-left: 3px solid var(--accent); }
+        
+        /* 언어 선택 버튼 스타일 */
+        .lang-switch { margin-bottom: 20px; font-size: 0.9rem; }
+        .lang-switch a { text-decoration: none; color: var(--accent); font-weight: bold; }
+    </style>
+</head>
+<body>
 
-        <section id="chapter2">
-            <h2>2장. 지체로서의 삶</h2>
-            <p>두 번째 챕터 내용을 작성합니다.</p>
-        </section>
-    </article>
-</main>
-
-<aside class="toc-sidebar">
-    <nav class="toc-box">
-        <div class="toc-header">Book Index</div>
-        <ul class="toc-list">
-            <li><a href="#preface" class="toc-link">머릿말</a></li>
-            <li><a href="#chapter1" class="toc-link">1장. 주님의 몸 된 교회</a></li>
-            <li><a href="#chapter2" class="toc-link">2장. 지체로서의 삶</a></li>
-        </ul>
+<header>
+    <a href="/" class="logo">Luke's Library</a>
+    <nav class="navbar">
+        <a href="/">Home</a>
+        <div class="dropdown">
+            <span class="dropbtn">Christian Living <i class="fa fa-caret-down"></i></span>
+            <div class="dropdown-content">
+                <a href="/christian-living/church-body-ko.html">교회는 주님의 몸이다 (KO)</a>
+                <a href="/christian-living/church-body-en.html">The Church is His Body (EN)</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <span class="dropbtn">Theology <i class="fa fa-caret-down"></i></span>
+            <div class="dropdown-content">
+                <a href="/theology/sample.html">신학 서적 예시</a>
+            </div>
+        </div>
     </nav>
-</aside>
+</header>
+
+<div class="container">
+    <aside class="profile-sidebar">
+        <img src="/assets/profile.jpg" alt="Luke Kim" class="profile-img">
+        <div style="font-size: 1.5rem; font-weight: bold;">Luke Kim</div>
+        <ul class="sns-links">
+            <li><i class="fab fa-github"></i> <a href="https://github.com/Luke-Kim-Physics">GitHub</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <div class="lang-switch">
+            🌐 <a href="church-body-ko.html">한국어</a> | <a href="church-body-en.html">English</a>
+        </div>
+
+        <article>
+            <h1>교회는 주님의 몸이다</h1>
+            <p style="color: #888;">발행일: 2026-02-18</p>
+
+            <section id="preface">
+                <h2>머릿말 (Preface)</h2>
+                <p>본문 내용을 여기에 작성합니다...</p>
+            </section>
+
+            <section id="chapter1">
+                <h2>1장. 주님의 몸 된 교회</h2>
+                <p>1장 상세 내용을 작성합니다...</p>
+            </section>
+        </article>
+    </main>
+
+    <aside class="toc-sidebar">
+        <nav class="toc-box">
+            <div class="toc-header">Book Index</div>
+            <ul class="toc-list">
+                <li><a href="#preface" class="toc-link">머릿말</a></li>
+                <li><a href="#chapter1" class="toc-link">1장. 주님의 몸 된 교회</a></li>
+            </ul>
+        </nav>
+    </aside>
+</div>
+
+<script>
+    /* 스크롤 감지 스크립트 (모든 페이지에 포함되어야 함) */
+    const links = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('section');
+    function spyScroll() {
+        let currentSectionId = "";
+        sections.forEach(section => {
+            if (window.scrollY >= section.offsetTop - 120) { currentSectionId = section.getAttribute('id'); }
+        });
+        links.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSectionId}`) { link.classList.add('active'); }
+        });
+    }
+    window.addEventListener('scroll', spyScroll);
+    window.addEventListener('DOMContentLoaded', spyScroll);
+</script>
+
+</body>
+</html>
