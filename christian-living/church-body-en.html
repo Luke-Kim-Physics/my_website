@@ -45,6 +45,54 @@
         section {
             scroll-margin-top: 80px; /* 헤더 높이만큼 여유 공간을 줍니다 */
         }
+
+/* --- 모바일 및 태블릿 최적화 (반응형) --- */
+
+/* 1. 태블릿 크기 (1024px 이하) */
+@media (max-width: 1024px) {
+    .container {
+        grid-template-columns: 200px 1fr; /* 오른쪽 목차를 숨기고 2단으로 변경 */
+        gap: 20px;
+    }
+    .toc-sidebar {
+        display: none; /* 화면이 좁아지면 목차는 일단 숨깁니다 */
+    }
+}
+
+/* 2. 핸드폰 크기 (768px 이하) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* 헤더 로고와 메뉴를 세로로 배치 */
+        padding: 10px;
+    }
+    .navbar {
+        margin-top: 10px;
+        flex-wrap: wrap; /* 메뉴가 많으면 다음 줄로 넘어가게 설정 */
+        justify-content: center;
+    }
+    .navbar > a, .dropbtn {
+        margin: 5px 10px; /* 메뉴 간격 조정 */
+    }
+    .container {
+        grid-template-columns: 1fr; /* 1단 구성으로 변경 (모두 세로로 쌓임) */
+        margin: 20px auto;
+    }
+    .profile-sidebar {
+        position: static; /* 고정 해제 */
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .profile-img {
+        max-width: 150px; /* 프로필 사진 크기 조절 */
+    }
+    main {
+        padding: 0 10px; /* 본문 양옆 여백 추가 */
+    }
+    .hero-section h1 {
+        font-size: 2rem; /* 제목 크기 축소 */
+    }
+}
+
     </style>
 </head>
 <body>
