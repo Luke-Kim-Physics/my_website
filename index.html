@@ -230,69 +230,6 @@ searchInput.addEventListener('keypress', function(e) {
 });
 </script>
 
-<div id="search-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
-    <div style="background:white; padding:30px; border-radius:8px; width:90%; max-width:500px; position:relative;">
-        <span id="close-search" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5rem; color:#666;">&times;</span>
-        
-        <h3 style="margin-top:0; color:#333;">Search Library</h3>
-        <p style="font-size:0.85rem; color:#888; margin-bottom:15px;">검색어를 입력하고 엔터를 누르세요.</p>
-        
-        <input type="text" id="search-input" placeholder="Search for topics, books, chapters..." 
-               style="width:100%; padding:12px; border:1px solid #ddd; border-radius:4px; font-size:1rem; box-sizing:border-box;">
-    </div>
-</div>
-
-<script>
-    /* 검색창 열기/닫기 및 검색 실행 스크립트 */
-    const searchBtn = document.getElementById('search-btn');
-    const searchModal = document.getElementById('search-modal');
-    const closeSearch = document.getElementById('close-search');
-    const searchInput = document.getElementById('search-input');
-
-    // 1. 돋보기 버튼 클릭 시 검색창 열기
-    if (searchBtn) {
-        searchBtn.onclick = function() {
-            searchModal.style.display = 'flex';
-            searchInput.focus(); // 열리자마자 바로 타이핑 가능하게 함
-        }
-    }
-
-    // 2. 'X' 버튼 클릭 시 검색창 닫기
-    closeSearch.onclick = function() {
-        searchModal.style.display = 'none';
-    }
-
-    // 3. 배경(검은 영역) 클릭 시 검색창 닫기
-    window.onclick = function(event) {
-        if (event.target == searchModal) {
-            searchModal.style.display = 'none';
-        }
-    }
-
-    // 4. 엔터키 누르면 검색 실행
-searchInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        const query = searchInput.value.trim();
-        if (!query) return;
-
-        // 구글로 가는 대신, 현재 페이지 내에서 텍스트 찾기 기능
-        if (window.find) {
-            const found = window.find(query);
-            if (!found) {
-                alert("페이지 내에서 해당 단어를 찾을 수 없습니다.");
-            }
-        } else {
-            // 구글 검색으로 보조 (브라우저 호환성 대비)
-            const siteUrl = "Luke-Kim-Physics.github.io";
-            window.open(`https://www.google.com/search?q=site:${siteUrl}+${query}`);
-        }
-        
-        searchModal.style.display = 'none';
-        searchInput.value = "";
-    }
-});
-</script>
-
     
 </body>
 </html>
