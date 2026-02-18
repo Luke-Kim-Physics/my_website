@@ -212,20 +212,19 @@ searchInput.addEventListener('keypress', function(e) {
         const query = searchInput.value.trim();
         if (!query) return;
 
-        // 구글로 가는 대신, 현재 페이지 내에서 텍스트 찾기 기능
-        if (window.find) {
-            const found = window.find(query);
-            if (!found) {
-                alert("페이지 내에서 해당 단어를 찾을 수 없습니다.");
-            }
-        } else {
-            // 구글 검색으로 보조 (브라우저 호환성 대비)
-            const siteUrl = "Luke-Kim-Physics.github.io";
-            window.open(`https://www.google.com/search?q=site:${siteUrl}+${query}`);
-        }
-        
+        // 1. 검색 전 포커스를 본문 밖으로 빼서 검색 위치를 초기화합니다.
+        searchInput.blur(); 
         searchModal.style.display = 'none';
-        searchInput.value = "";
+
+        // 2. window.find(문자열, 대소문자구분, 뒤로검색, 전체순환, 단어단위, 프레임포함, 다이얼로그표시)
+        // 네 번째 인자인 'true'가 페이지 끝까지 갔을 때 다시 위에서부터 찾아주는 '순환' 옵션입니다.
+        const found = window.find(query, false, false, true, false, false, false);
+
+        if (!found) {
+            alert("현재 페이지 내에서 '" + query + "' 단어를 찾을 수 없습니다.\n(다른 페이지에 있는 내용은 상단 메뉴를 통해 이동 후 검색해 주세요.)");
+        }
+
+        searchInput.value = ""; // 입력창 비우기
     }
 });
 </script>
