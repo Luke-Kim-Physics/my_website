@@ -142,29 +142,36 @@
 </div>
 
 <script>
+    const searchBtn = document.getElementById('search-btn');
+    const searchModal = document.getElementById('search-modal');
+    const closeSearch = document.getElementById('close-search');
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results');
+
     const pages = [
         { title: "Home", url: "/index.html" },
         { title: "교회는 주님의 몸이다 (KO)", url: "/christian-living/church-body-ko.html" },
         { title: "The Church is the Body (EN)", url: "/christian-living/church-body-en.html" },
         { title: "과학과 신앙", url: "/theology/science_faith.html" }
-        // 새로운 책을 만들 때마다 여기에 추가하세요!
     ];
 
-    const searchInput = document.getElementById('search-input');
-    const resultsContainer = document.getElementById('search-results');
+    // 검색창 열기/닫기 제어
+    if (searchBtn) {
+        searchBtn.onclick = () => { searchModal.style.display = 'flex'; searchInput.focus(); };
+    }
+    closeSearch.onclick = () => { searchModal.style.display = 'none'; };
+    window.onclick = (e) => { if (e.target == searchModal) searchModal.style.display = 'none'; };
 
+    // 사이트 전체 검색 로직
     searchInput.addEventListener('input', async function() {
         const query = searchInput.value.trim().toLowerCase();
-        resultsContainer.innerHTML = ""; // 기존 결과 초기화
-
-        if (query.length < 2) return; // 2글자 이상부터 검색
+        resultsContainer.innerHTML = "";
+        if (query.length < 2) return;
 
         for (const page of pages) {
             try {
                 const response = await fetch(page.url);
                 const html = await response.text();
-                
-                // HTML 태그를 제거하고 순수 텍스트만 추출하여 검색
                 const doc = new DOMParser().parseFromString(html, 'text/html');
                 const text = doc.body.textContent.toLowerCase();
 
@@ -172,16 +179,23 @@
                     const div = document.createElement('div');
                     div.style.padding = "10px";
                     div.style.borderBottom = "1px solid #eee";
-                    // 클릭 시 해당 페이지로 이동하며 검색어를 파라미터로 전달
-                    div.innerHTML = `<a href="${page.url}?q=${encodeURIComponent(query)}" style="text-decoration:none; color:#3498db; font-weight:bold;">${page.title}</a>
-                                     <p style="font-size:0.8rem; color:#666; margin:5px 0;">이 페이지에서 검색어가 발견되었습니다.</p>`;
+                    div.innerHTML = `
+                        <a href="${page.url}?q=${encodeURIComponent(query)}" style="text-decoration:none; color:#3498db; font-weight:bold;">${page.title}</a>
+                        <p style="font-size:0.8rem; color:#666; margin:5px 0;">이 페이지 내에서 결과가 발견되었습니다.</p>
+                    `;
                     resultsContainer.appendChild(div);
                 }
-            } catch (e) { console.error("Search error:", e); }
+            } catch (e) { console.error("Search fetch error:", e); }
         }
-        
-        if (resultsContainer.innerHTML === "") {
-            resultsContainer.innerHTML = "<p style='color:#999;'>결과가 없습니다.</p>";
+        if (resultsContainer.innerHTML === "") resultsContainer.innerHTML = "<p style='color:#999;'>결과가 없습니다.</p>";
+    });
+
+    // 페이지 이동 후 단어 자동 찾기
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get('q');
+        if (q) {
+            setTimeout(() => { window.find(q, false, false, true, false, false, false); }, 500);
         }
     });
 </script>
