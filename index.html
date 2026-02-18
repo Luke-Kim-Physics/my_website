@@ -1,31 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luke's Library | Home</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [기존 스타일 유지] */
+        :root {
+            --text-main: #333;
+            --text-sub: #7a7a7a;
+            --accent: #3498db;
+            --border: #f2f3f3;
+        }
+
+        body { font-family: 'Inter', sans-serif; color: var(--text-main); margin: 0; line-height: 1.6; }
+
+        header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1000;
+        }
+        .logo { font-weight: bold; font-size: 1.2rem; text-decoration: none; color: #333; }
+
+        /* [새로 추가된 드롭다운 CSS] */
+        .navbar { display: flex; align-items: center; }
+        .navbar > a, .dropbtn { 
+            margin: 0 15px; 
+            text-decoration: none; 
+            color: var(--text-sub); 
+            font-size: 0.9rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            top: 100%;
+        }
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .dropdown-content a:hover { background-color: #f9f9f9; color: var(--accent); }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* 레이아웃 및 사이드바 */
+        .container {
+            display: grid;
+            grid-template-columns: 260px 1fr 260px;
+            max-width: 1200px;
+            margin: 40px auto;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .profile-sidebar, .toc-sidebar { position: sticky; top: 80px; align-self: flex-start; }
+        .profile-img { width: 100%; max-width: 200px; border-radius: 50%; margin-bottom: 20px; border: 1px solid var(--border); }
+        .sns-links { list-style: none; padding: 20px 0 0; border-top: 1px solid var(--border); }
+        .sns-links li { margin-bottom: 12px; font-size: 0.9rem; }
+        .sns-links i { width: 25px; color: var(--text-sub); }
+        .sns-links a { text-decoration: none; color: #494e52; }
+
+        /* Home 전용 디자인 */
+        .hero-section { text-align: center; padding: 80px 20px; }
+        .hero-section h1 { font-size: 2.8rem; margin-bottom: 10px; }
+        .tagline { font-size: 1.2rem; color: var(--text-sub); }
+    </style>
+</head>
+<body>
+
 <header>
     <a href="/" class="logo">Luke's Library</a>
     <nav class="navbar">
         <a href="/">Home</a>
         
         <div class="dropdown">
-            <a href="#" class="dropbtn">Christian Living <i class="fa fa-caret-down"></i></a>
+            <span class="dropbtn">Christian Living <i class="fa fa-caret-down"></i></span>
             <div class="dropdown-content">
                 <a href="/christian-living/church-body.html">교회는 주님의 몸이다</a>
-                <a href="/christian-living/devotion.html">온전한 헌신(교사편)</a>
+                <a href="/christian-living/devotion.html">하나님이 기뻐하시는 온전한 헌신</a>
             </div>
         </div>
 
         <div class="dropdown">
-            <a href="#" class="dropbtn">Theology <i class="fa fa-caret-down"></i></a>
+            <span class="dropbtn">Theology <i class="fa fa-caret-down"></i></span>
             <div class="dropdown-content">
-                <a href="/theology/intro.html">신학 입문</a>
+                <a href="/theology/example.html">샘플 신학 서적</a>
             </div>
         </div>
+        
         <a href="#"><i class="fas fa-search"></i></a>
     </nav>
 </header>
 
-<main id="home-content">
-    <div class="hero-section">
-        <h1>Welcome to Luke's Library</h1>
-        <p class="tagline">깊이 있는 신앙과 신학의 기록을 나누는 공간입니다.</p>
-        <hr>
-        <p>상단 메뉴에서 서적 카테고리를 선택하여 글을 읽으실 수 있습니다.</p>
-    </div>
-</main>
+<div class="container">
+    <aside class="profile-sidebar">
+        <img src="/assets/profile.jpg" alt="Luke Kim" class="profile-img">
+        <div style="font-size: 1.5rem; font-weight: bold;">Luke Kim</div>
+        <div style="color: var(--text-sub); margin-bottom: 20px;">Physics & Theology</div>
+        <ul class="sns-links">
+            <li><i class="fab fa-github"></i> <a href="https://github.com/Luke-Kim-Physics">GitHub</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <div class="hero-section">
+            <h1>Welcome to Luke's Library</h1>
+            <p class="tagline">신앙과 신학의 깊이를 기록하는 개인 서재입니다.</p>
+            <p style="margin-top: 40px; color: #666;">
+                상단의 카테고리 메뉴를 클릭하여 각 서적의 내용을 확인하실 수 있습니다.
+            </p>
+        </div>
+    </main>
+
+    <aside class="toc-sidebar">
+        <div style="border: 1px solid #eee; padding: 15px; border-radius: 4px; font-size: 0.85rem; color: #777;">
+            책을 선택하시면 이곳에 목차가 나타납니다.
+        </div>
+    </aside>
+</div>
+
+</body>
+</html>
