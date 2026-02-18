@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luke Kim | Physics Portfolio</title>
-    
+    <title>Luke Kim | Library</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. 기본 스타일 설정 */
         :root {
             --text-main: #333;
             --text-sub: #7a7a7a;
@@ -17,209 +15,150 @@
             --border: #f2f3f3;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-            margin: 0;
-            line-height: 1.6;
-            background-color: #fff;
-        }
+        body { font-family: 'Inter', 'Noto Serif KR', serif; margin: 0; color: var(--text-main); }
 
-        /* 2. 상단 네비게이션 바 */
+        /* 1. 헤더 및 드롭다운 메뉴 */
         header {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 1000;
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; background: white; z-index: 1000;
         }
-        .logo { font-weight: bold; font-size: 1.2rem; text-decoration: none; color: #333; }
-        nav a { margin: 0 15px; text-decoration: none; color: var(--text-sub); font-size: 0.9rem; }
-
-        /* 3. 레이아웃 (3단 그리드) */
-        .container {
-            display: grid;
-            grid-template-columns: 260px 1fr 260px;
-            max-width: 1200px;
-            margin: 40px auto;
-            gap: 40px;
-            padding: 0 20px;
-        }
-
-        /* 4. 왼쪽 사이드바 (프로필 및 SNS) */
-        .profile-sidebar {
-            position: sticky;
-            top: 80px;
-            align-self: flex-start;
-        }
-        .profile-img {
-            width: 100%;
-            max-width: 200px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-        }
-        .name { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
-        .bio { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 20px; }
+        .logo { font-weight: bold; font-size: 1.3rem; text-decoration: none; color: #333; cursor: pointer; }
         
-        .sns-links { list-style: none; padding: 20px 0 0; border-top: 1px solid var(--border); }
-        .sns-links li { margin-bottom: 12px; font-size: 0.9rem; display: flex; align-items: center; }
-        .sns-links i { width: 25px; color: var(--text-sub); font-size: 1.1rem; }
-        .sns-links a { text-decoration: none; color: #494e52; }
-        .sns-links a:hover { color: var(--accent); }
+        nav { display: flex; gap: 30px; align-items: center; }
+        .nav-item { position: relative; cursor: pointer; font-size: 0.95rem; color: var(--text-sub); text-decoration: none; }
+        .nav-item:hover { color: var(--accent); }
 
-        /* 5. 중앙 본문 */
-        main h1 { font-size: 2.5rem; margin-top: 0; }
-        h2 { font-size: 1.8rem; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 50px; }
-        section { margin-bottom: 100px; }
+        /* 드롭다운 스타일 */
+        .dropdown {
+            display: none; position: absolute; top: 25px; left: 0;
+            background: white; border: 1px solid var(--border);
+            min-width: 250px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px; padding: 10px 0;
+        }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a {
+            display: block; padding: 10px 20px; color: var(--text-main);
+            text-decoration: none; font-size: 0.85rem;
+        }
+        .dropdown a:hover { background: #f9f9f9; color: var(--accent); }
 
-        /* 6. 오른쪽 목차 (TOC) */
-        .toc-sidebar {
-            position: sticky;
-            top: 80px;
-            align-self: flex-start;
+        /* 2. 홈 화면 섹션 (Home) */
+        #home-view {
+            height: 80vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), 
+                        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
         }
-        .toc-box {
-            border: 1px solid #e2e2e2;
-            border-radius: 4px;
+        #home-view h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        #home-view p { font-size: 1.2rem; color: var(--text-sub); }
+
+        /* 3. 책 상세 섹션 (Book View - 기존 3단 레이아웃) */
+        #book-view { display: none; } /* 처음엔 숨김 */
+        .container {
+            display: grid; grid-template-columns: 260px 1fr 260px;
+            max-width: 1200px; margin: 40px auto; gap: 40px; padding: 0 20px;
         }
-        .toc-header {
-            background: #7a7a7a;
-            color: white;
-            padding: 10px 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+
+        /* 프로필 및 목차 스타일은 이전과 동일하게 유지 */
+        .sidebar { position: sticky; top: 100px; align-self: flex-start; }
+        .profile-img { width: 100%; border-radius: 50%; margin-bottom: 20px; }
+        .toc-box { border: 1px solid var(--border); border-radius: 4px; }
+        .toc-header { background: #7a7a7a; color: white; padding: 10px; font-size: 0.8rem; font-weight: bold; }
         .toc-list { list-style: none; padding: 0; margin: 0; }
-        .toc-list li a {
-            display: block;
-            padding: 8px 15px;
-            text-decoration: none;
-            color: var(--text-sub);
-            font-size: 0.85rem;
-            border-bottom: 1px solid var(--border);
-            transition: 0.2s;
-        }
-        /* 현재 섹션 강조 표시 */
-        .toc-list li a.active {
-            color: var(--accent);
-            background: #f9f9f9;
-            font-weight: bold;
-            border-left: 3px solid var(--accent);
-        }
+        .toc-list a { display: block; padding: 10px; text-decoration: none; color: var(--text-sub); border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .toc-list a.active { color: var(--accent); font-weight: bold; border-left: 3px solid var(--accent); }
 
-        /* 7. 반응형 디자인 */
-        @media (max-width: 1024px) {
-            .container { grid-template-columns: 200px 1fr; }
-            .toc-sidebar { display: none; }
-        }
-        @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; }
-            .profile-sidebar { position: static; text-align: center; }
-            .sns-links { display: inline-block; text-align: left; }
-        }
+        section { margin-bottom: 80px; min-height: 400px; }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="/" class="logo">Luke Physics</a>
+    <div class="logo" onclick="showHome()">Luke's Library</div>
     <nav>
-        <a href="#">Guide</a>
-        <a href="#">About</a>
-        <a href="#">Research</a>
-        <a href="#"><i class="fas fa-search"></i></a>
+        <div class="nav-item">
+            Christian Living Books <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i>
+            <div class="dropdown">
+                <a href="#" onclick="loadBook('church-body')">교회는 주님의 몸이다</a>
+                <a href="#" onclick="loadBook('teacher-devotion')">하나님이 기뻐하시는 온전한 헌신(교사편)</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            Theology Books <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i>
+            <div class="dropdown">
+                <a href="#">조직신학 서론</a>
+                <a href="#">기독론 연구</a>
+            </div>
+        </div>
+        <a href="#" class="nav-item"><i class="fas fa-search"></i></a>
     </nav>
 </header>
 
-<div class="container">
-    <aside class="profile-sidebar">
-        <img src="/assets/profile.jpg" alt="Luke Kim" class="profile-img">
-        <div class="name">Luke Kim</div>
-        <div class="bio">Physics Researcher. <br>Focusing on Quantum Mechanics.</div>
-        
-        <ul class="sns-links">
-            <li><i class="fas fa-map-marker-alt"></i> Rochester, NY</li>
-            <li><i class="fab fa-github"></i> <a href="https://github.com/Luke-Kim-Physics">GitHub</a></li>
-            <li><i class="fab fa-twitter"></i> <a href="#">Twitter</a></li>
-            <li><i class="fab fa-instagram"></i> <a href="#">Instagram</a></li>
-        </ul>
-    </aside>
+<main id="home-view">
+    <h1>솔리 데오 글로리아</h1>
+    <p>말씀과 신학이 머무는 Luke Kim의 디지털 서재입니다.</p>
+</header>
 
-    <main>
-        <article>
-            <h1>About Me</h1>
-            <p>이 웹사이트는 GitHub Pages를 활용한 개인 연구 포트폴리오입니다. 배너 광고 없이 깔끔한 환경에서 글을 읽으실 수 있습니다.</p>
+<main id="book-view">
+    <div class="container">
+        <aside class="sidebar">
+            <img src="/assets/profile.jpg" alt="Profile" class="profile-img">
+            <h3 id="author-name">Luke Kim</h3>
+            <p style="font-size: 0.8rem; color: #7a7a7a;">신학 연구자 및 작가</p>
+        </aside>
 
-            <section id="introduction">
-                <h2>Introduction</h2>
-                <p>여기에 본인의 소개글을 작성하세요. 아래 섹션들로 스크롤하면 오른쪽 목차가 자동으로 반응합니다.</p>
-                <div style="height: 400px; background: #fdfdfd; border: 1px dashed #ccc; margin-top: 20px; padding: 20px;">
-                    본문 내용이 길어지는 예시 영역입니다...
-                </div>
-            </section>
+        <article id="content-area">
+            </article>
 
-            <section id="projects">
-                <h2>Current Projects</h2>
-                <p>진행 중인 프로젝트나 연구 주제를 나열하세요.</p>
-                <div style="height: 500px; background: #fdfdfd; border: 1px dashed #ccc; margin-top: 20px; padding: 20px;">
-                    프로젝트 상세 설명 영역...
-                </div>
-            </section>
-
-            <section id="contact">
-                <h2>Contact</h2>
-                <p>궁금한 점이 있다면 언제든 연락주세요.</p>
-                <div style="height: 300px; background: #fdfdfd; border: 1px dashed #ccc; margin-top: 20px; padding: 20px;">
-                    연락처 정보 영역...
-                </div>
-            </section>
-        </article>
-    </main>
-
-    <aside class="toc-sidebar">
-        <nav class="toc-box">
-            <div class="toc-header">On this page</div>
-            <ul class="toc-list">
-                <li><a href="#introduction" class="toc-link">Introduction</a></li>
-                <li><a href="#projects" class="toc-link">Current Projects</a></li>
-                <li><a href="#contact" class="toc-link">Contact</a></li>
-            </ul>
-        </nav>
-    </aside>
-</div>
+        <aside class="sidebar">
+            <div class="toc-box">
+                <div class="toc-header">CHAPTERS</div>
+                <ul class="toc-list" id="toc-area">
+                    </ul>
+            </div>
+        </aside>
+    </div>
+</main>
 
 <script>
-    /* 스크롤 감지 및 목차 업데이트 스크립트 */
-    const links = document.querySelectorAll('.toc-link');
-    const sections = document.querySelectorAll('section');
-
-    function spyScroll() {
-        let currentSectionId = "";
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            // 현재 스크롤 위치가 섹션 상단(여유값 100px)보다 아래에 있을 때
-            if (window.scrollY >= sectionTop - 120) {
-                currentSectionId = section.getAttribute('id');
-            }
-        });
-
-        links.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSectionId}`) {
-                link.classList.add('active');
-            }
-        });
+    function showHome() {
+        document.getElementById('home-view').style.display = 'flex';
+        document.getElementById('book-view').style.display = 'none';
     }
 
-    window.addEventListener('scroll', spyScroll);
-    // 페이지 로드 시 초기 실행
-    window.addEventListener('DOMContentLoaded', spyScroll);
+    // 책 클릭 시 화면 전환 및 데이터 로드 함수
+    function loadBook(bookId) {
+        document.getElementById('home-view').style.display = 'none';
+        document.getElementById('book-view').style.display = 'block';
+        
+        const contentArea = document.getElementById('content-area');
+        const tocArea = document.getElementById('toc-area');
+
+        if(bookId === 'church-body') {
+            contentArea.innerHTML = `
+                <h1>교회는 주님의 몸이다</h1>
+                <section id="ch1"><h2>제1장: 몸의 머리 되신 그리스도</h2><p>본문 내용...</p></section>
+                <section id="ch2"><h2>제2장: 지체로서의 성도</h2><p>본문 내용...</p></section>
+            `;
+            tocArea.innerHTML = `
+                <li><a href="#ch1" class="toc-link">1장. 머리 되신 그리스도</a></li>
+                <li><a href="#ch2" class="toc-link">2장. 지체로서의 성도</a></li>
+            `;
+        } else if(bookId === 'teacher-devotion') {
+            contentArea.innerHTML = `
+                <h1>하나님이 기뻐하시는 온전한 헌신</h1>
+                <section id="t1"><h2>1부: 교사의 소명</h2><p>본문 내용...</p></section>
+                <section id="t2"><h2>2부: 가르침의 실제</h2><p>본문 내용...</p></section>
+            `;
+            tocArea.innerHTML = `
+                <li><a href="#t1" class="toc-link">1부. 교사의 소명</a></li>
+                <li><a href="#t2" class="toc-link">2부. 가르침의 실제</a></li>
+            `;
+        }
+        // 스크롤 감지 스크립트 재연결 등 추가 로직 가능
+    }
 </script>
 
 </body>
