@@ -173,18 +173,26 @@
                 const response = await fetch(page.url);
                 const html = await response.text();
                 const doc = new DOMParser().parseFromString(html, 'text/html');
-                const text = doc.body.textContent.toLowerCase();
+                // 헤더나 사이드바를 제외한 'main' 영역의 텍스트만 가져옵니다.
+                const mainContent = doc.querySelector('main');
+                const text = mainContent ? mainContent.textContent.toLowerCase() : "";
 
                 if (text.includes(query)) {
                     const div = document.createElement('div');
                     div.style.padding = "10px";
                     div.style.borderBottom = "1px solid #eee";
+    
+                    // 검색어가 포함된 앞뒤 문맥을 조금 잘라서 보여줍니다.
+                    const index = text.indexOf(query);
+                    const snippet = "..." + text.substring(index - 20, index + 40).trim() + "...";
+    
                     div.innerHTML = `
                         <a href="${page.url}?q=${encodeURIComponent(query)}" style="text-decoration:none; color:#3498db; font-weight:bold;">${page.title}</a>
-                        <p style="font-size:0.8rem; color:#666; margin:5px 0;">이 페이지 내에서 결과가 발견되었습니다.</p>
+                        <p style="font-size:0.8rem; color:#666; margin:5px 0;">${snippet}</p>
                     `;
                     resultsContainer.appendChild(div);
                 }
+
             } catch (e) { console.error("Search fetch error:", e); }
         }
         if (resultsContainer.innerHTML === "") resultsContainer.innerHTML = "<p style='color:#999;'>결과가 없습니다.</p>";
