@@ -142,53 +142,48 @@
 </div>
 
 <script>
-    /* 검색창 열기/닫기 및 검색 실행 스크립트 */
-    const searchBtn = document.getElementById('search-btn');
-    const searchModal = document.getElementById('search-modal');
-    const closeSearch = document.getElementById('close-search');
+    const pages = [
+        { title: "Home", url: "/index.html" },
+        { title: "교회는 주님의 몸이다 (KO)", url: "/christian-living/church-body-ko.html" },
+        { title: "The Church is the Body (EN)", url: "/christian-living/church-body-en.html" },
+        { title: "과학과 신앙", url: "/theology/science_faith.html" }
+        // 새로운 책을 만들 때마다 여기에 추가하세요!
+    ];
+
     const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results');
 
-    // 1. 돋보기 버튼 클릭 시 검색창 열기
-    if (searchBtn) {
-        searchBtn.onclick = function() {
-            searchModal.style.display = 'flex';
-            searchInput.focus(); // 열리자마자 바로 타이핑 가능하게 함
+    searchInput.addEventListener('input', async function() {
+        const query = searchInput.value.trim().toLowerCase();
+        resultsContainer.innerHTML = ""; // 기존 결과 초기화
+
+        if (query.length < 2) return; // 2글자 이상부터 검색
+
+        for (const page of pages) {
+            try {
+                const response = await fetch(page.url);
+                const html = await response.text();
+                
+                // HTML 태그를 제거하고 순수 텍스트만 추출하여 검색
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+                const text = doc.body.textContent.toLowerCase();
+
+                if (text.includes(query)) {
+                    const div = document.createElement('div');
+                    div.style.padding = "10px";
+                    div.style.borderBottom = "1px solid #eee";
+                    // 클릭 시 해당 페이지로 이동하며 검색어를 파라미터로 전달
+                    div.innerHTML = `<a href="${page.url}?q=${encodeURIComponent(query)}" style="text-decoration:none; color:#3498db; font-weight:bold;">${page.title}</a>
+                                     <p style="font-size:0.8rem; color:#666; margin:5px 0;">이 페이지에서 검색어가 발견되었습니다.</p>`;
+                    resultsContainer.appendChild(div);
+                }
+            } catch (e) { console.error("Search error:", e); }
         }
-    }
-
-    // 2. 'X' 버튼 클릭 시 검색창 닫기
-    closeSearch.onclick = function() {
-        searchModal.style.display = 'none';
-    }
-
-    // 3. 배경(검은 영역) 클릭 시 검색창 닫기
-    window.onclick = function(event) {
-        if (event.target == searchModal) {
-            searchModal.style.display = 'none';
+        
+        if (resultsContainer.innerHTML === "") {
+            resultsContainer.innerHTML = "<p style='color:#999;'>결과가 없습니다.</p>";
         }
-    }
-
-    // 4. 엔터키 누르면 검색 실행
-searchInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        const query = searchInput.value.trim();
-        if (!query) return;
-
-        // 1. 검색 전 포커스를 본문 밖으로 빼서 검색 위치를 초기화합니다.
-        searchInput.blur(); 
-        searchModal.style.display = 'none';
-
-        // 2. window.find(문자열, 대소문자구분, 뒤로검색, 전체순환, 단어단위, 프레임포함, 다이얼로그표시)
-        // 네 번째 인자인 'true'가 페이지 끝까지 갔을 때 다시 위에서부터 찾아주는 '순환' 옵션입니다.
-        const found = window.find(query, false, false, true, false, false, false);
-
-        if (!found) {
-            alert("현재 페이지 내에서 '" + query + "' 단어를 찾을 수 없습니다.\n(다른 페이지에 있는 내용은 상단 메뉴를 통해 이동 후 검색해 주세요.)");
-        }
-
-        searchInput.value = ""; // 입력창 비우기
-    }
-});
+    });
 </script>
     
 </body>
